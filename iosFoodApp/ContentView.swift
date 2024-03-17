@@ -8,17 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        @Environment(\.managedObjectContext) private var viewContext
+        
+        var body: some View {
+            NavigationStack {
+                VStack {
+                    Header()
+                    Menu()
+                }
+            }
         }
-        .padding()
     }
-}
 
-#Preview {
-    ContentView()
-}
+    struct MainScreen_Previews: PreviewProvider {
+        static var previews: some View {
+            ContentView().environment(\.managedObjectContext, PersistenceController.shared.container.viewContext)
+        }
+    }
